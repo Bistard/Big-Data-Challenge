@@ -5,5 +5,5 @@ This is the initial project for Undergraduated Big Data Challenge 2021
 - Chris Li
 - Sherry Li
 - Charlie Li
-- Di Yu
+- Yudi Sun
 
