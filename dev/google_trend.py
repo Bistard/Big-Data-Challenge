@@ -17,17 +17,26 @@ import os
 import datetime as dt
 import matplotlib.dates as mdates
 
+import random
+
 # %% initialization
-search_period = '2020-03-01 2020-10-31'
+search_period = '2020-02-01 2020-10-31'
 mental_health_keywords = ['anxiety disorder',
                           'insomnia',
                           'depression',
                           'eating disorder',
-                          'loneliness']
-keyword_color = ['red', 'blue', 'orange', 'yellow', 'gray']
+                          'loneliness',
+                          'violence',
+                          'School bullying',
+                          'excessive drinking',
+                          'marching']
+# keyword_color = ['red', 'blue', 'orange', 'yellow', 'gray']
 dir_name = os.path.dirname(__file__)
 data_path = os.path.join(dir_name, 'google_trend/search_interest_2020-03_2020-10.csv')
 fig1_path = os.path.join(dir_name, 'google_trend/search_interest-all.png')
+
+def rand_color():
+    return [random.randint(0, 1) for i in range(3)]
 
 # %%
 # get the Search Interest && save as .csv
@@ -51,7 +60,7 @@ plt.figure(figsize=(20, 10))
 for (i, key) in enumerate(mental_health_keywords):
     plt.plot(x_axis,
              data_frame[key],
-             color=keyword_color[i],
+             color=rand_color(),
              linewidth=2)
 
 plt.legend(mental_health_keywords)
