@@ -23,11 +23,12 @@ import utility as util
 ################################################################################
 # %% initialization
 print("Total weeks: ", util.week_num)
-kw_list = ['depression',
-           'insomnia',
-           'lonelines',
-           'panic attack',
-           'anxiety']
+kw_list = ['ageusia',
+           'abdominal pain',
+           'loss of appetite',
+           'anorexia',
+           'diarrhea',
+           'vomiting']
 keyword_color = ['red', 'blue', 'orange', 'yellow',
                  'gray', 'green', 'violet', 'black',
                  'magenta', 'cyan']
@@ -121,7 +122,7 @@ for row in range(len(df)):
 df_ave = df.copy()
 plt.figure(figsize=(20,10))
 
-fig = sm.tsa.seasonal_decompose(df_ave['total'], period=season_period)
+fig = sm.tsa.seasonal_decompose(df_ave['total'], period=util.season_period)
 plt.plot(fig.trend, color='red', linewidth=3)
 plt.plot(df_ave['total'], color='red', linewidth=0.5)
 
@@ -155,7 +156,7 @@ print('p value: %.4f' % stat[3])
 
 ### plotting
 plt.figure(figsize=(20,10))
-fig = sm.tsa.seasonal_decompose(df_ave['total'], period=season_period)
+fig = sm.tsa.seasonal_decompose(df_ave['total'], period=util.season_period)
 plt.plot(fig.trend, color='red', linewidth=3)
 plt.plot(df_ave['total'], color='red', linewidth=0.5)
 plt.plot(x, fn(x), linestyle='solid', color='blue', linewidth=2)
@@ -171,3 +172,5 @@ fig4 = plt.gcf()
 plt.show()
 fig4.savefig(fig4_path)
 
+
+# %%
