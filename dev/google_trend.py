@@ -18,9 +18,11 @@ import datetime as dt
 import matplotlib.dates as mdates
 import random
 
+import utility as util
+
 ################################################################################
 # %% initialization
-print("Total weeks: ", utility.week_num)
+print("Total weeks: ", util.week_num)
 kw_list = ['depression',
            'insomnia',
            'lonelines',
@@ -46,7 +48,7 @@ def rand_color():
 pytrend = TrendReq()
 df = pd.DataFrame({})
 for key in kw_list:
-    pytrend.build_payload(kw_list=[key], geo='', timeframe=search_period)
+    pytrend.build_payload(kw_list=[key], geo='', timeframe=util.search_period)
     df[key] = pytrend.interest_over_time()[key]
 # df = df.drop(labels='isPartial', axis='columns')
 df.to_csv(data_path)
@@ -138,8 +140,8 @@ fig3.savefig(fig3_path)
 ###############################################################################
 # %%
 # Linear Regression
-x = [n for n in range(week_num)] #262 weeks over the 5 year period
-y = [df_ave['total'][row] for row in range(week_num)]
+x = [n for n in range(util.week_num)] #262 weeks over the 5 year period
+y = [df_ave['total'][row] for row in range(util.week_num)]
 coe = np.polyfit(x, y, 1)
 fn = np.poly1d(coe)
 
@@ -149,6 +151,7 @@ stat = st.linregress(x, y)
 ### printing stat
 print('r value: %.4f' % stat[2])
 print('p value: %.4f' % stat[3])
+# TODO: understands the below code
 # print('+%.4f relevance per year' % (stat[0]*52)) 不懂这是干嘛的..从论文抄过来的
 
 ### plotting
