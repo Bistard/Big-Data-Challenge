@@ -1,4 +1,4 @@
-# %%
+# %% importing
 import pandas as pd
 import numpy as np
 import math
@@ -13,16 +13,14 @@ from scipy import integrate
 from pytrends.request import TrendReq
 
 import os
+import sys
 import datetime as dt
 import matplotlib.dates as mdates
-
 import random
 
-###############################################################################
+################################################################################
 # %% initialization
-search_period = '2020-02-01 2020-11-01'
-week_num = round(abs(date(2020, 11, 1) - date(2020, 2, 1)).days / 7)
-print("Total weeks: ", week_num)
+print("Total weeks: ", utility.week_num)
 kw_list = ['depression',
            'insomnia',
            'lonelines',
@@ -44,19 +42,12 @@ def rand_color():
     return [random.randint(0, 1) for i in range(3)]
 
 ###############################################################################
-# %%
-# get the Search Interest && save as .csv
+# %% get the Search Interest && save as .csv
 pytrend = TrendReq()
 df = pd.DataFrame({})
 for key in kw_list:
     pytrend.build_payload(kw_list=[key], geo='', timeframe=search_period)
     df[key] = pytrend.interest_over_time()[key]
-'''
-pytrend.build_payload(kw_list=kw_list,
-                      geo='',
-                      timeframe=search_period)
-df = pytrend.interest_over_time()
- '''
 # df = df.drop(labels='isPartial', axis='columns')
 df.to_csv(data_path)
 df
