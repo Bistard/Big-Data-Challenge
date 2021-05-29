@@ -20,4 +20,7 @@ import random
 
 ################################################################################
 # %% initialization
+dir_name = os.path.dirname(__file__)
+fake_news_path = os.path.join(dir_name, 'fake_news/.csv')
 
+df_fake = pd.read_csv(fake_news_path)
