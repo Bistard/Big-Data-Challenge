@@ -19,8 +19,16 @@ import matplotlib.dates as mdates
 import random
 
 ################################################################################
-# %% initialization
+# %% initialization and reading data
 dir_name = os.path.dirname(__file__)
-fake_news_path = os.path.join(dir_name, 'fake_news/.csv')
+fake_news_path = os.path.join(dir_name, 'fake_news/0-basic.csv')
+google_trend_path = os.path.join(dir_name, 'google_trend/0-basic.csv')
 
 df_fake = pd.read_csv(fake_news_path)
+df_google = pd.read_csv(google_trend_path)
+
+df_fake
+
+# df_google
+
+# %%

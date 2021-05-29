@@ -33,7 +33,7 @@ keyword_color = ['red', 'blue', 'orange', 'yellow',
                  'magenta', 'cyan']
 season_period = 6 # weeks
 dir_name = os.path.dirname(__file__)
-data_path = os.path.join(dir_name, 'google_trend/0-basic_2020-02_2020-10.csv')
+data_path = os.path.join(dir_name, 'google_trend/0-basic.csv')
 fig1_path = os.path.join(dir_name, 'google_trend/1-basic.png')
 fig2_path = os.path.join(dir_name, 'google_trend/2-seasonal.png')
 fig3_path = os.path.join(dir_name, 'google_trend/3-average.png')
