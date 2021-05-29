@@ -32,6 +32,7 @@ df_google = pd.read_csv(google_trend_path)
 df_fake
 df_google
 
+################################################################################
 # %%
 dates = []
 freqs = []

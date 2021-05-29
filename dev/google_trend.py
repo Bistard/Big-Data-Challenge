@@ -31,7 +31,6 @@ kw_list = ['depression',
 keyword_color = ['red', 'blue', 'orange', 'yellow',
                  'gray', 'green', 'violet', 'black',
                  'magenta', 'cyan']
-season_period = 6 # weeks
 dir_name = os.path.dirname(__file__)
 data_path = os.path.join(dir_name, 'google_trend/0-basic.csv')
 fig1_path = os.path.join(dir_name, 'google_trend/1-basic.png')
@@ -82,7 +81,7 @@ df_season = df.copy()
 plt.figure(figsize=(20, 10))
 for (i, key) in enumerate(kw_list):
     # Period is every half season (6 weeks)
-    fig2 = sm.tsa.seasonal_decompose(df_season[key], period=season_period)
+    fig2 = sm.tsa.seasonal_decompose(df_season[key], period=util.season_period)
     plt.plot(fig2.trend,
              color=keyword_color[i],
              linewidth=3)

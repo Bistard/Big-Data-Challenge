@@ -18,7 +18,5 @@ import matplotlib.dates as mdates
 import random
 
 search_period = '2020-02-01 2020-11-01'
+season_period = 6 # number of weeks
 week_num = round(abs(date(2020, 11, 1) - date(2020, 2, 1)).days / 7)
-
-if __name__ == '__main__':
-    pass
