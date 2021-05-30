@@ -11,6 +11,7 @@ import statsmodels.api as sm
 import statistics
 from scipy import integrate
 from pytrends.request import TrendReq
+from pytrends import dailydata
 
 import os
 import datetime as dt

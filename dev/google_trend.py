@@ -11,6 +11,7 @@ import statsmodels.api as sm
 import statistics
 from scipy import integrate
 from pytrends.request import TrendReq
+from pytrends import dailydata
 
 import os
 import sys
@@ -23,6 +24,7 @@ import utility as util
 ################################################################################
 # %% initialization
 dir_name = os.path.dirname(__file__)
+date_path = os.path.join(dir_name, 'date.csv')
 data_path = os.path.join(dir_name, 'google_trend/0-basic.csv')
 fig1_path = os.path.join(dir_name, 'google_trend/1-basic.png')
 fig2_path = os.path.join(dir_name, 'google_trend/2-seasonal.png')
@@ -37,9 +39,14 @@ def rand_color():
 # %% get the Search Interest && save as .csv
 pytrend = TrendReq()
 df = pd.DataFrame({})
+
 for key in util.kw_list:
-    pytrend.build_payload(kw_list=[key], geo='', timeframe=util.search_period)
-    df[key] = pytrend.interest_over_time()[key]
+    df[key] = dailydata.get_daily_data(key, util.start_year,
+                                            util.start_month,
+                                            util.end_year,
+                                            util.end_month,
+                                            geo='')
+    
 # df = df.drop(labels='isPartial', axis='columns')
 df.to_csv(data_path)
 df

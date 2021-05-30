@@ -28,5 +28,9 @@ keyword_color = ['red', 'blue', 'orange', 'yellow',
                  'magenta', 'cyan']
 
 search_period = '2020-02-01 2020-11-01'
+start_year = 2020
+end_year = 2020
+start_month = 2
+end_month = 10
 season_period = 6 # number of weeks
 week_num = round(abs(date(2020, 11, 1) - date(2020, 2, 1)).days / 7)
