@@ -22,16 +22,6 @@ import utility as util
 
 ################################################################################
 # %% initialization
-print("Total weeks: ", util.week_num)
-kw_list = ['ageusia',
-           'abdominal pain',
-           'loss of appetite',
-           'anorexia',
-           'diarrhea',
-           'vomiting']
-keyword_color = ['red', 'blue', 'orange', 'yellow',
-                 'gray', 'green', 'violet', 'black',
-                 'magenta', 'cyan']
 dir_name = os.path.dirname(__file__)
 data_path = os.path.join(dir_name, 'google_trend/0-basic.csv')
 fig1_path = os.path.join(dir_name, 'google_trend/1-basic.png')
@@ -47,7 +37,7 @@ def rand_color():
 # %% get the Search Interest && save as .csv
 pytrend = TrendReq()
 df = pd.DataFrame({})
-for key in kw_list:
+for key in util.kw_list:
     pytrend.build_payload(kw_list=[key], geo='', timeframe=util.search_period)
     df[key] = pytrend.interest_over_time()[key]
 # df = df.drop(labels='isPartial', axis='columns')
@@ -58,16 +48,16 @@ df
 # %%
 # plot the search interest figure from 2020-02-01 to 2020-10-31
 df = pd.read_csv(data_path)
-x_axis = [dt.datetime.strptime(day, '%Y-%m-%d').date() for day in df['date']]
+dates = [dt.datetime.strptime(day, '%Y-%m-%d').date() for day in df['date']]
 plt.figure(figsize=(20, 10))
 
-for (i, key) in enumerate(kw_list):
-    plt.plot(x_axis,
+for (i, key) in enumerate(util.kw_list):
+    plt.plot(dates,
              df[key],
-             color=keyword_color[i],
+             color=util.keyword_color[i],
              linewidth=2)
 
-plt.legend(kw_list)
+plt.legend(util.kw_list)
 plt.xlabel('Time')
 plt.ylabel('Search Interest')
 plt.title('Search Interest of Mental Health in World-wide')
@@ -80,18 +70,18 @@ fig1.savefig(fig1_path)
 
 df_season = df.copy()
 plt.figure(figsize=(20, 10))
-for (i, key) in enumerate(kw_list):
+for (i, key) in enumerate(util.kw_list):
     # Period is every half season (6 weeks)
     fig2 = sm.tsa.seasonal_decompose(df_season[key], period=util.season_period)
     plt.plot(fig2.trend,
-             color=keyword_color[i],
+             color=util.keyword_color[i],
              linewidth=3)
     # blur the original
     plt.plot(df_season[key],
-             color=keyword_color[i],
+             color=util.keyword_color[i],
              linewidth=0.5)
 legend_list = []
-for kw in kw_list:
+for kw in util.kw_list:
     legend_list.append([kw + ' new'])
     legend_list.append([kw + ' old'])
 
@@ -115,9 +105,9 @@ df['total'] = float(0)
 df
 for row in range(len(df)):
     acc = 0
-    for keyword in kw_list:
+    for keyword in util.kw_list:
         acc += df[keyword][row]
-    df['total'][row] = (acc/len(kw_list))
+    df['total'][row] = (acc/len(util.kw_list))
 
 df_ave = df.copy()
 plt.figure(figsize=(20,10))
