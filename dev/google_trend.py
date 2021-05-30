@@ -38,15 +38,15 @@ def rand_color():
 ###############################################################################
 # %% get the Search Interest && save as .csv
 pytrend = TrendReq()
-df = pd.DataFrame({})
-
+df = pd.read_csv(date_path, error_bad_lines=False)
 for key in util.kw_list:
-    df[key] = dailydata.get_daily_data(key, util.start_year,
-                                            util.start_month,
-                                            util.end_year,
-                                            util.end_month,
-                                            geo='')
-    
+    temp = dailydata.get_daily_data(key, util.start_year,
+                                         util.start_month,
+                                         util.end_year,
+                                         util.end_month,
+                                         geo='')
+    df[key] = temp[key]
+
 # df = df.drop(labels='isPartial', axis='columns')
 df.to_csv(data_path)
 df
@@ -56,6 +56,7 @@ df
 # plot the search interest figure from 2020-02-01 to 2020-10-31
 df = pd.read_csv(data_path)
 dates = [dt.datetime.strptime(day, '%Y-%m-%d').date() for day in df['date']]
+
 plt.figure(figsize=(20, 10))
 
 for (i, key) in enumerate(util.kw_list):
