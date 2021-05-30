@@ -57,6 +57,7 @@ df
 # plot the search interest figure from 2020-02-01 to 2020-10-31
 df = pd.read_csv(data_path)
 dates = [dt.datetime.strptime(day, '%Y-%m-%d').date() for day in df['date']]
+
 plt.figure(figsize=(20, 10))
 
 for (i, key) in enumerate(util.kw_list):
