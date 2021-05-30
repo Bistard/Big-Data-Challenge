@@ -38,15 +38,16 @@ def rand_color():
 ###############################################################################
 # %% get the Search Interest && save as .csv
 pytrend = TrendReq()
-df = pd.DataFrame({})
-
-for key in util.kw_list:
-    df[key] = dailydata.get_daily_data(key, util.start_year,
-                                            util.start_month,
-                                            util.end_year,
-                                            util.end_month,
-                                            geo='')
-    
+df = pd.read_csv(date_path, error_bad_lines=False)
+for i, key in enumerate(util.kw_list):
+    temp = dailydata.get_daily_data(key, util.start_year,
+                                         util.start_month,
+                                         util.end_year,
+                                         2,
+                                         geo='')
+    print(temp[key+'_unscaled']) # TODO: PROBLEM
+    df[key] = temp[key+'_unscaled']
+    print(df) # TODO: PROBLEM
 # df = df.drop(labels='isPartial', axis='columns')
 df.to_csv(data_path)
 df
