@@ -18,6 +18,7 @@ import sys
 import datetime as dt
 import matplotlib.dates as mdates
 import random
+from collections import deque
 
 import utility as util
 
@@ -38,16 +39,25 @@ def rand_color():
 ###############################################################################
 # %% get the Search Interest && save as .csv
 pytrend = TrendReq()
-df = pd.read_csv(date_path, error_bad_lines=False)
-for i, key in enumerate(util.kw_list):
-    temp = dailydata.get_daily_data(key, util.start_year,
-                                         util.start_month,
-                                         util.end_year,
-                                         2,
-                                         geo='')
-    print(temp[key+'_unscaled']) # TODO: PROBLEM
-    df[key] = temp[key+'_unscaled']
-    print(df) # TODO: PROBLEM
+df = pd.read_csv(date_path)
+waiting_list = deque(util.kw_list)
+while waiting_list:
+    key = waiting_list[0]
+    print("==========", key, "==========")
+    try:
+        temp = dailydata.get_daily_data(key, util.start_year,
+                                        util.start_month,
+                                        util.end_year,
+                                        util.end_month,
+                                        geo='')
+        print("==========", "successed", "==========")
+    except:
+        print("==========", "failed", "==========")
+        continue
+    waiting_list.popleft()
+    temp.to_csv(data_path)
+    temp = pd.read_csv(data_path)
+    df[key] = temp[key]
 # df = df.drop(labels='isPartial', axis='columns')
 df.to_csv(data_path)
 df
@@ -78,6 +88,7 @@ fig1.savefig(fig1_path)
 # seasonal trend
 
 df_season = df.copy()
+df_season
 plt.figure(figsize=(20, 10))
 for (i, key) in enumerate(util.kw_list):
     # Period is every half season (6 weeks)
