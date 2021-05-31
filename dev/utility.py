@@ -17,12 +17,11 @@ import datetime as dt
 import matplotlib.dates as mdates
 import random
 
-kw_list = ['ageusia',
-           'abdominal pain',
-           'loss of appetite',
-           'anorexia',
-           'diarrhea',
-           'vomiting']
+kw_list = ['depression',
+           'loneliness',
+           'panic attack',
+           'anxiety',
+           'insomnia']
 keyword_color = ['red', 'blue', 'orange', 'yellow',
                  'gray', 'green', 'violet', 'black',
                  'magenta', 'cyan']
